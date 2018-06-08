@@ -1,0 +1,7 @@
+#!/usr/bin bash
+
+if hash godocdown 2>/dev/null; then
+        godocdown > readme.md
+    else
+        date "Need to install godocdown"
+    fi

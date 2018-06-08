@@ -18,7 +18,7 @@ type Community struct {
 	Mayor   string
 }
 
-func ExampleValueList() {
+func ExampleTag_StuctToValueList() {
 	c := Community{
 		Family: Family{
 			Father: "Daddy",
@@ -31,15 +31,36 @@ func ExampleValueList() {
 
 	m := map[string]interface{}{}
 
-	tags.ValueList("tag", c, "", m)
+	(tags.Tag{Name: "tag"}).StuctToValueList(c, "", m)
 
-	fmt.Println(m["family.father"])
-	fmt.Println(m["family.mother"])
-	fmt.Println(m["family.child"])
-	fmt.Println(m["captain"])
+	fmt.Println("family.father:", m["family.father"])
+	fmt.Println("family.mother:", m["family.mother"])
+	fmt.Println("family.child:", m["family.child"])
+	fmt.Println("captain:", m["captain"])
 	// Output:
-	// Daddy
-	// Mommy
-	// Baby
-	// Obvious
+	// family.father: Daddy
+	// family.mother: Mommy
+	// family.child: Baby
+	// captain: Obvious
+}
+
+func ExampleTag_GetValueKey() {
+	c := Community{
+		Family: Family{
+			Father: "Daddy",
+			Mother: "Mommy",
+			Child:  "Baby",
+		},
+		Captain: "Obvious",
+		Mayor:   "Winner",
+	}
+
+	f, v, err := (tags.Tag{Name: "tag"}).GetValueKey(c, "Family", "Mother")
+	fmt.Println("tag:", f)
+	fmt.Println("val:", v)
+	fmt.Println("error:", err)
+	// Output:
+	// tag: family.mother
+	// val: Mommy
+	// error: <nil>
 }

@@ -5,10 +5,25 @@
 
 ## Usage
 
-#### func  ValueList
+#### type Tag
 
 ```go
-func ValueList(tg string, v interface{}, ns string, m map[string]interface{})
+type Tag struct {
+	Name string
+}
 ```
-ValueList maps all tagged property with `tg` to its value. Nested structs will
-have a "." separated key
+
+
+#### func (Tag) GetValueKey
+
+```go
+func (tg Tag) GetValueKey(v interface{}, fields ...string) (string, interface{}, error)
+```
+
+#### func (Tag) StuctToValueList
+
+```go
+func (tg Tag) StuctToValueList(v interface{}, ns string, m map[string]interface{})
+```
+StuctToValueList maps all tagged property with `tg` to its value. Nested structs
+will have a "." separated key
